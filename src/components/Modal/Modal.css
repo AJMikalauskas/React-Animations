@@ -1,0 +1,103 @@
+.Modal {
+    position: fixed;
+    z-index: 200;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 2px #ccc;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    top: 30%;
+    left: 25%;
+    width: 50%;
+    /* CSS properties to be added over time not instantly, does both opacity and transform CSS properties.
+        Removed display property in both css classes below because it stops the animation from happening*/
+    transition: all 0.3s ease-out ;
+}
+
+/* Very trivial way to just display modal if one CSS class and not display if another ->
+Make the time for the class ModalOpened the same as the enter key in animationTiming object  */
+.ModalOpened {
+    /* CSS Transitions, easiest way to do react animations */
+    /* opacity: 1;
+    transform: translateY(0); */
+    
+    /* This is for CSS animations in the @keyframes below, tells how long we want keyframes animation to go on and how, add forwards
+    so that the animation doesn't go to 0% keyframe and rather just stays at the 100% keyframe. */
+    animation: openModal 0.4s ease-out forwards;
+}
+
+/* Make the time for the class ModalClosed the same as the exit key in animationTiming object */
+.ModalClosed {
+    /* When modal closes, sets opacity to 0 and shows sliding transition up or -100% */
+    /* margin-top: -300px;
+    opacity: 0;
+    transform: translateY(-100%); */
+    /* display: none; */
+
+    /* Changed to animation with keyframes from cloesModal below, more description in above animationproperty set ->
+    can see slower duration on exit due to longer time */
+    animation: closeModal 1s ease-out forwards; 
+
+}
+
+
+
+/* fade-slide classes for the CSSTransitionComponent */
+.fade-slide-enter {
+
+}
+
+.fade-slide-enter-active {
+    animation: openModal 0.4s ease-out forwards;
+}
+
+.fade-slide-exit {
+    
+}
+
+.fade-slide-exit-active {
+    animation: closeModal 1s ease-out forwards;
+}
+
+
+
+
+/* More advanced than CSS transitions, CSS animations */
+/* Keyframes of the animation when it just started the css properties at 0%, halfway through animation at 50%, fully through the animation
+at 100%  -> if no defined at 100%, naturally goes to 0%*/
+
+@keyframes openModal {
+    0% {
+        margin-top: -300px;
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    50%{
+        margin-top: -150px;
+        opacity: 0.5;
+        transform: translateY(90%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Do this openModal CSS animation for closing Modal too, pretty much revere openModal animation */
+@keyframes closeModal {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50%{
+        margin-top: -150px;
+        opacity: 0.5;
+        transform: translateY(60%);
+    }
+    100%{
+        margin-top: -300px;
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
